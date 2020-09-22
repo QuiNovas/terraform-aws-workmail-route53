@@ -1,9 +1,9 @@
 resource "aws_route53_record" "autodiscover" {
   name = "autodiscover.${var.domain}"
   records = [
-    "autodiscover.mail.us-east-1.awsapps.com.",
+    "autodiscover.mail.${var.region}.awsapps.com.",
   ]
-  ttl     = 300
+  ttl     = var.ttl
   type    = "CNAME"
   zone_id = var.zone_id
 }
@@ -14,7 +14,7 @@ resource "aws_route53_record" "domain_keys" {
   records = [
     "${var.domain_key_prefixes[count.index]}.dkim.amazonses.com.",
   ]
-  ttl     = 300
+  ttl     = var.ttl
   type    = "CNAME"
   zone_id = var.zone_id
 }
@@ -24,7 +24,7 @@ resource "aws_route53_record" "mx" {
   records = [
     var.mx_record,
   ]
-  ttl     = 300
+  ttl     = var.ttl
   type    = "MX"
   zone_id = var.zone_id
 }
@@ -34,8 +34,16 @@ resource "aws_route53_record" "ses_verification" {
   records = [
     var.verification_record,
   ]
-  ttl     = 300
+  ttl     = var.ttl
   type    = "TXT"
   zone_id = var.zone_id
 }
 
+resource "aws_route53_record" "additional_records" {
+  count   = length(var.additional_records)
+  name    = var.additional_records[count.index]["hostname"]
+  records = split(",", var.additional_records[count.index]["value"])
+  ttl     = var.additional_records[count.index]["ttl"]
+  type    = var.additional_records[count.index]["record_type"]
+  zone_id = var.zone_id
+}

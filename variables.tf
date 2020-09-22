@@ -1,20 +1,42 @@
+variable "region" {
+  description = "Region where workmail is being setup. Currently it is supported in 3 regions only"
+  type        = string
+  default     = "us-east-1"
+}
+
 variable "domain" {
-  type = string
+  description = "Domain name"
+  type        = string
 }
 
 variable "domain_key_prefixes" {
-  type = list(string)
+  description = "Recommended CNAME records for mail setup"
+  type        = list(string)
 }
 
 variable "mx_record" {
-  type = string
+  description = "MX record required for Mail Setup"
+  type        = string
 }
 
 variable "verification_record" {
-  type = string
+  description = "TXT record required for Domain ownership"
+  type        = string
 }
 
 variable "zone_id" {
-  type = string
+  description = "Hosted Zone id of Workmail Domain"
+  type        = string
 }
 
+variable "ttl" {
+  description = "ttl for all of the records"
+  type        = string
+  default     = "3600"
+}
+
+variable "additional_records" {
+  description = "Additional recommended records. List of maps, keys: record_type, ttl, hostname, value"
+  type        = list
+  default     = []
+}
