@@ -30,10 +30,8 @@ resource "aws_route53_record" "mx" {
 }
 
 resource "aws_route53_record" "ses_verification" {
-  name = "_amazonses.${var.domain}"
-  records = [
-    var.verification_record,
-  ]
+  name    = "_amazonses.${var.domain}"
+  records = var.verification_record
   ttl     = var.ttl
   type    = "TXT"
   zone_id = var.zone_id

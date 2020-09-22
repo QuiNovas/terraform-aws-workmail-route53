@@ -20,8 +20,9 @@ variable "mx_record" {
 }
 
 variable "verification_record" {
-  description = "TXT record required for Domain ownership"
-  type        = string
+  description = "TXT (_amazonses records) required for Domain ownership. Caution: TXT values can be coming SES domain verfication too. You can put that here or manage this outside"
+  type        = any
+  default     = ""
 }
 
 variable "zone_id" {

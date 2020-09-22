@@ -11,7 +11,7 @@ module "workmail_route53" {
   domain              = "example.com."
   domain_key_prefixes = ["ot6x65j25xmmf7dk62c7ejmvijbdur2d", "ot6x65j25xmmf7dk62c7ejmvijbdur2d", "6n7ethipoh66v5nr2ppsijjzka7ayqgm"]
   mx_record           = "10 inbound-smtp.us-east-1.amazonaws.com."
-  verification_record = "vd4QzRkRGKHSDfy9pgt426FVOoNAL1vrW/wG40ybdls="
+  verification_record = ["vd4QzRkRGKHSDfy9pgt426FVOoNAL1vrW/wG40ybdls="]
   zone_id             = "Z3SFKUSQ35F48"
 
   additional_records = [
